@@ -1,4 +1,4 @@
-Book(ISBN, AID(fk), Title, BasePrice, Year, Category, Quantity, Genre) 
+Book(ISBN, AID(fk), Title, BasePrice, Year, Category, Stock) 
 Author(AID, PenFrstName, PenLastName, FirstName, LastName, Email, Phone, Address)
 Customer(CID, FirstName, LastName, Email, Phone, Address)
 Publisher(Name, Address, Email, Phone) 

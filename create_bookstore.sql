@@ -7,6 +7,7 @@ create table BOOK
     Title varchar(150) not null,
     Year char(4),
     BasePrice real,
+    Stock int,
     Category varchar(30),
     ISBN char(10) not null,
     PubID char(9) not null,
