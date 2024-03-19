@@ -12,3 +12,6 @@ PRAGMA foreign_keys = OFF;
 .import ./data/writes.csv WRITES
 
 PRAGMA foreign_keys = ON;
+
+.mode column
+.headers on
