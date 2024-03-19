@@ -83,6 +83,7 @@ create table PURCHASE
     CusID char(9) not null,
     DateOfSale date,
     Quantity int not null,
+    primary key(BISBN, CusId),
     foreign key(BISBN) references BOOK,
     foreign key(CusID) references CUSTOMER
 );
