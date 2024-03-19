@@ -1,0 +1,5 @@
+Checkpoint 3 Queries
+
+Section 2
+a. select Title, BasePrice from BOOK, AUTHOR, WRITES where AuID=AID and BISBN=ISBN and LastName='Pratchett' and BasePrice<10;
+
