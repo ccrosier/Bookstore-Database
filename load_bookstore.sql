@@ -9,5 +9,6 @@ PRAGMA foreign_keys = OFF;
 .import ./data/discount.csv DISCOUNT
 .import ./data/review.csv REVIEW
 .import ./data/purchase.csv PURCHASE
+.import ./data/writes.csv WRITES
 
 PRAGMA foreign_keys = ON;

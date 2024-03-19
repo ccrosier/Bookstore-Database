@@ -2,37 +2,43 @@
  * BOOKSTORE database schema
  * @author Ryan Crosier, Preksha Rao, Paul Choe, Zijun Zhou
  */
-
 create table BOOK
 (
-    Title varchar(30) not null,
+    Title varchar(150) not null,
     Year char(4),
-    BasePrice int,
+    BasePrice real,
     Category varchar(30),
-    AuID char(9) not null,
     ISBN char(10) not null,
     PubID char(9) not null,
     primary key(ISBN),
-    foreign key(PubID) references PUBLISHER(PID),
-    foreign key(AuID) references AUTHOR(AID)
+    foreign key(PubID) references PUBLISHER(PID)
 );
 
 create table AUTHOR
 (
-    PenFirstName varchar(15) not null,
-    PenLastName varchar(15) not null,
-    FirstName varchar(15),
-    LastName varchar(15),
+    PenFirstName varchar(30) not null,
+    PenLastName varchar(30) not null,
+    FirstName varchar(30),
+    LastName varchar(30),
     Email varchar(30),
     Phone char(10),
     AID char(9) not null,
     primary key(AID)
 );
 
+create table WRITES
+(
+    BISBN char(10) not null,
+    AuID char(9) not null,
+    primary key(BISBN, AuID),
+    foreign key(BISBN) references BOOK(ISBN),
+    foreign key(AuID) references AUTHOR(AID)
+);
+
 create table CUSTOMER
 (
-    FirstName varchar(15) not null,
-    LastName varchar(15) not null,
+    FirstName varchar(30) not null,
+    LastName varchar(30) not null,
     Email varchar(30) not null,
     Phone char(10) not null,
     CID char(9) not null,
