@@ -16,13 +16,13 @@ h. Provide the list of authors who wrote the books purchased by the customers wh
 the average customer
 
 
-a. SELECT c.FirstName, c.LastName, SUM(b.BasePrice * p.PQuantity) AS TotalSpent
+a. SELECT c.FirstName, c.LastName, SUM(b.BasePrice * p.Quantity) AS TotalSpent
    FROM Customer c, Purchase p, Book b
    WHERE c.CID = p.CusID
    AND p.BISBN = b.ISBN
    GROUP BY c.CID;
 
-b. SELECT c.FirstName, c.LastName, c.Email, SUM(b.BasePrice * p.PQuantity) AS TotalSpent
+b. SELECT c.FirstName, c.LastName, c.Email, SUM(b.BasePrice * p.Quantity) AS TotalSpent
    From Customer c, Purchase p, Book b
    WHERE c.CID = p.CusID 
    AND p.BISBN = b.ISBN
@@ -35,19 +35,19 @@ c. SELECT b.Title, COUNT(*) AS TotalCopiesSold
    GROUP BY b.ISBN
    ORDER BY TotalCopiesSold DESC;
 
-d. SELECT b.Title, (b.BasePrice * SUM(p.PQuantity)) AS TotalDollarPerTitle
+d. SELECT b.Title, (b.BasePrice * SUM(p.Quantity)) AS TotalDollarPerTitle
    FROM Book b, Purchase p
    WHERE b.ISBN = p.BISBN
    GROUP BY b.Title
    ORDER BY TotalDollarPerTitle DESC;
 
-e. SELECT a.FirstName, a.LastName, SUM(p.PQuantity) AS TotalBooksSold
+e. SELECT a.FirstName, a.LastName, SUM(p.Quantity) AS TotalBooksSold
    FROM Author a， Writes w, Purchase p
    WHERE a.AID = w.AuID AND w.BISBN = p.BISBN
    GROUP BY a.AID
    ORDER BY TotalBooksSold DESC;
 
-f. SELECT a.FirstName, a.LastName, SUM(b.BasePrice * p.PQuantity) AS TotalProfit
+f. SELECT a.FirstName, a.LastName, SUM(b.BasePrice * p.Quantity) AS TotalProfit
    FROM Author a， Writes w, Purchase p
    WHERE a.AID = w.AuID AND w.BISBN = p.BISBN
    GROUP BY a.AID
@@ -56,9 +56,9 @@ f. SELECT a.FirstName, a.LastName, SUM(b.BasePrice * p.PQuantity) AS TotalProfit
 g. SELECT c.* FROM Customer c, Purchase p, Writes w, Author a
    WHERE p.BISBN = w.BISBN
    AND c.CID = p.CusID
-   WHERE w.AuID = (SELECT a.AID FROM Author a, Writes w, Purchase p WHERE a.AID = w.AuID AND w.BISBN = p.BISBN GROUP BY a.AID ORDER BY SUM(b.BasePrice * p.PQuantity) DESC);
+   WHERE w.AuID = (SELECT a.AID FROM Author a, Writes w, Purchase p WHERE a.AID = w.AuID AND w.BISBN = p.BISBN GROUP BY a.AID ORDER BY SUM(b.BasePrice * p.Quantity) DESC);
 
-h. SELECT a.PenFrstName, a.PenLastName, SUM(b.BasePrice * p.PQuantity) AS TotalSpent
+h. SELECT a.PenFrstName, a.PenLastName, SUM(b.BasePrice * p.Quantity) AS TotalSpent
    FROM Author a, Customer c, Purchase p, Writes w
    WHERE a.AID = w.AuID
    AND w.BISBN = p.BISBN
