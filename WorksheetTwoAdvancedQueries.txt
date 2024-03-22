@@ -1,1 +1,50 @@
 
+Section 4
+a. Provide a list of customer names, along with the total dollar amount each customer has spent.
+b. Provide a list of customer names and e-mail addresses for customers who have spent more than the
+average customer.
+c. Provide a list of the titles in the database and associated total copies sold to customers, sorted from the
+title that has sold the most individual copies to the title that has sold the least.
+d. Provide a list of the titles in the database and associated dollar totals for copies sold to customers,
+sorted from the title that has sold the highest dollar amount to the title that has sold the smallest.
+e. Find the most popular author in the database (i.e. the one who has sold the most books)
+f. Find the most profitable author in the database for this store (i.e. the one who has brought in the most
+money)
+g. Provide a list of customer information for customers who purchased anything written by the most
+profitable author in the database.
+h. Provide the list of authors who wrote the books purchased by the customers who have spent more than
+the average customer
+
+
+a. SELECT c.FirstName, c.LastName, SUM(b.BasePrice * p.PQuantity) AS TotalSpent
+   FROM Customer c, Purchase p, Book b
+   WHERE c.CID = p.CusID
+   AND p.BISBN = b.ISBN
+   GROUP BY c.CID;
+
+b. SELECT c.FirstName, c.LastName, c.Email, SUM(b.BasePrice * p.PQuantity) AS TotalSpent
+   From Customer c, Purchase p, Book b
+   WHERE c.CID = p.CusID 
+   AND p.BISBN = b.ISBN
+   AND c.TotalSpent > AVG(TotalSpent)
+   GROUP BY c.CID
+
+c. SELECT b.Title, COUNT(*) AS TotalCopiesSold
+   FROM Book b
+   JOIN Purchase p WHERE b.ISBN = p.BISBN
+   GROUP BY b.ISBN
+   ORDER BY TotalCopiesSold DESC;
+
+d. SELECT b.Title, (b.BasePrice * SUM(p.PQuantity)) AS TotalDollarPerTitle
+   FROM Book b, Purchase p
+   WHERE b.ISBN = p.BISBN
+   GROUP BY b.Title
+   ORDER BY TotalDollarPerTitle DESC
+
+e. SELECT a.FirstName, a.LastName, SUM(p.PQuantity) AS TotalBooksSold
+   FROM Author a， Writes w, Purchase p
+   WHERE a.AID = w.AuID AND w.BISBN = p.BISBN
+   GROUP BY a.AID
+   ORDER BY TotalBooksSold DESC
+
+f.
