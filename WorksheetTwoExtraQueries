@@ -1,0 +1,26 @@
+1. Plain english: Average price of books distributed by a given publisher
+Relational algebra: |F| avg(BasePrice)(Book ⋈_{PubID=PID} c)
+SQL Query: 
+SELECT p.Publisher, b.AVG(BasePrice) 
+FROM Book B JOIN Publisher P 
+WHERE b.PubID = p.PID 
+GROUP BY Publisher
+
+2. Plain english: Title of every book with an average rating of 4/5 or higher that has been reviewed at least 10 times
+Relational algebra:
+R1 <- (BISBN |F| count(BISBD), avg(Rating) Review)
+Result <- ΠTitle(σavg(Rating)>= 4(Book  ⋈ISBN=BISBNR1))
+SQL Query: 
+with R1 AS (SELECT b.BISBN, COUNT(BISBN), AVG(r.Rating) AS avg_rating FROM r Review, b Book GROUP BY BISBN)
+with Result AS (SELECT b.Title FROM b Book JOIN R1 on b.ISBN = R1.BISBN WHERE R1.avg_Rating >= 4)
+SELECT Title FROM Result;
+
+
+3. Plain English: The PenFirstName of every author that has written a book in the genre fiction
+Relational Algebra:
+R1<- σGenre="fiction"(Book)
+Result <- ΠPenFirstName(Author ⋈AID=AuID R1)
+SQL Query: 
+with R1 AS (SELECT * FROM Book WHERE Genre = 'fiction')
+with Result as (SELECT DISTINCT a.PenFirstName From Author a JOIN R1 ON a.AID = R1.AuID)
+
