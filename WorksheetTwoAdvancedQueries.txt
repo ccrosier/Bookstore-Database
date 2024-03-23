@@ -52,11 +52,12 @@ e. SELECT a.FirstName, a.LastName, SUM(p.Quantity) AS TotalBooksSold
    GROUP BY a.AID
    ORDER BY TotalBooksSold DESC;
 
-f. SELECT a.FirstName, a.LastName, SUM(b.BasePrice * p.Quantity) AS TotalProfit
+f. SELECT PenFirstName, PenLastName, MAX(TotalProfit) from (
+   SELECT a.PenFirstName, a.PenLastName, SUM(b.BasePrice * p.Quantity) AS TotalProfit
    FROM Author a, Writes w, Purchase p, Book b
    WHERE a.AID = w.AuID AND w.BISBN = b.ISBN AND b.ISBN = p.BISBN
    GROUP BY a.AID
-   ORDER BY TotalProfit DESC;
+   ORDER BY TotalProfit DESC);
 
 g. SELECT c.* FROM Customer c, Purchase p, Writes w, Author a
    WHERE p.BISBN = w.BISBN
@@ -77,14 +78,7 @@ WHERE w.AuID = (
     ORDER BY SUM(b.BasePrice * p.Quantity) DESC
 );
 
-
-h. SELECT a.PenFrstName, a.PenLastName, SUM(b.BasePrice * p.Quantity) AS TotalSpent
-   FROM Author a, Customer c, Purchase p, Writes w
-   WHERE a.AID = w.AuID
-   AND w.BISBN = p.BISBN
-   WHERE p.CusID = c.CID
-   AND c.TotalSpent > AVG(TotalSpent)
-   GROUP BY a.AID;
-
-
+h.  WITH r1 AS (SELECT c.cid, sum(b.bASeprice) AS totalspent FROM customer c, book b, purchASe p WHERE c.cid=p.cusid AND p.bisbn=b.isbn GROUP BY cid),
+    r2 AS (SELECT AVG(totalspent) AS ats FROM r1)
+    SELECT a.* FROM r1 x, r2 y, author a, purchASe p, writes w, book b WHERE p.cusid=cid AND p.bisbn=b.isbn AND b.isbn=w.bisbn AND w.auid=a.aid AND x.totalspent>y.ats;
 
