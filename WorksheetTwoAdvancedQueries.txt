@@ -23,16 +23,16 @@ a. SELECT c.FirstName, c.LastName, SUM(b.BasePrice * p.Quantity) AS TotalSpent
    GROUP BY c.CID;
 
 ??b. SELECT c.FirstName, c.LastName, c.Email, SUM(b.BasePrice * p.Quantity) AS TotalSpent
-   From Customer c, Purchase p, Book b
+   FROM Customer c, Purchase p, Book b
    WHERE c.CID = p.CusID 
    AND p.BISBN = b.ISBN
    AND c.TotalSpent > AVG(TotalSpent)
    GROUP BY c.CID;
 
    Modified:
-   with R1 AS (SELECT p.CusID, SUM(b.BasePrice * p.Quantity) AS TotalSpent, AVG(TotalSpent) AS avg_spent FROM Purchase p, Book b GROUP BY ISBN),
+   WITH R1 AS (SELECT p.CusID, SUM(b.BasePrice * p.Quantity) AS TotalSpent, AVG(TotalSpent) AS avg_spent FROM Purchase p, Book b GROUP BY ISBN),
    Result AS (SELECT c.FirstName, c.LastName, c.Email from Customer c join R1 on c.CID = R1.CusID where R1.TotalSpent > R1.avg_spent)
-   Select c.FirstName, c.LastName from Result
+   SELECT c.FirstName, c.LastName FROM Result
 
 c. SELECT b.Title, SUM(p.Quantity) AS TotalCopiesSold
    FROM Book b
