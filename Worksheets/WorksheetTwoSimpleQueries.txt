@@ -3,17 +3,15 @@ Checkpoint 3 Queries
 Section 2
 a. select Title, BasePrice from BOOK, AUTHOR, WRITES where AuID=AID and BISBN=ISBN and LastName='Pratchett' and BasePrice<10;
 
-b. select Title, DateOfSale from BOOK, PURCHASE, CUSTOMER where BISBN=ISBN and CusID=CID and CusID='<the customer id>'
+b. select Title, DateOfSale from BOOK, PURCHASE, CUSTOMER where BISBN=ISBN and CusID=CID and CusID='c00000001';
 
 c. select Title, ISBN from BOOK where Stock < 5;
 
 d. with R1 as (select * from CUSTOMER, PURCHASE, BOOK where CusID=CID and BISBN=ISBN)
    select CID, Title from R1, AUTHOR as a, WRITES as w where w.BISBN=ISBN and w.AuID=a.AID and a.PenLastName='Pratchett';
 
-e. select sum(Quantity) from BOOK, PURCHASE, CUSTOMER where BISBN=ISBN and CusID=CID and CusID='c00000001'
+e. select sum(Quantity) from BOOK, PURCHASE, CUSTOMER where BISBN=ISBN and CusID=CID and CusID='c00000001';
 
 f. with R1 as (select CID, Title, DateOfSale, Quantity from BOOK, PURCHASE, CUSTOMER where BISBN=ISBN and CusID=CID),
-   R2 as select CID, sum(Quantity) from R1 group by CID
+   R2 as (select CID, sum(Quantity) from R1 group by CID)
    select CID, max(Total) from R2;
-
-

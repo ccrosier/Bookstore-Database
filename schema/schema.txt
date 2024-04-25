@@ -6,4 +6,3 @@ Discount(DiscountID(pk), BISBN(fk), DiscountStart, DiscountEnd, AmountOff)
 Review(ReviewID(pk), BISBN(fk), CID(fk), Rating, Content)
 Purchase(PurchaseID(pk), BISBN(fk), CusID(fk),  DateOfSale, PQuantity)
 Writes(BISBN(fk), AuID(fk))
-
