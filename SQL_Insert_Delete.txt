@@ -7,37 +7,35 @@ insert into author values('a000000005', 'Joe', 'Schmoe', 'Joe', 'joe@gmail.com',
 insert into writes values('11111111111', 'a000000005');
 
 # book deletion 
-DELETE FROM Book WHERE ISBN=‘abcd111111’;
-DELETE FROM Writes WHERE ISBN = ‘abcd11111’; 
+delete from book where isbn = 'abcd111111';
+delete from writes where isbn = 'abcd111111';
 
-# 
-UPDATE Book SET Stock = 150 WHERE ISBN = 'abcd111111'
+# book update
+update book set stock = 150 where isbn = 'abcd111111';
 
 # author insertion
-INSERT INTO Author
-VALUES('a000000005', "Joe", "Schmoe", "Joe", "Schmoe",
-'joe@gmail.com', NULL);
+insert into author values('a000000005', "Joe", "Schmoe", "Joe", "Schmoe", 'joe@gmail.com', NULL);
 
 # author update
-UPDATE Author SET PenLastName='Smith' WHERE AID='a000000005';
+update author set PenLastName='Smith' where AID='a000000005';
 
 # author delete 
-DELETE FROM Author WHERE AID='a000000005'
+delete from author where aid='a000000005';
 
 # publisher insert 
-INSERT INTO Publisher VALUES('p000000005', 'Penguin', '123 Sesame Street', 'peng@gmail.com', '1234567890')
+insert into publisher values('p000000005', 'Penguin', '123 Sesame Street', 'peng@gmail.com', '1234567890');
 
 # publisher update
-UPDATE Publisher SET Name=’NewName’ WHERE PID=’p000000005’; 
+update publisher set name='NewName' where pid='p000000005';
 
 # publisher delete
-DELETE FROM Publisher WHERE PID = ‘p00000005’; 
+delete from publisher where pid='p000000005';
 
 # customer insert
-INSERT INTO Customer VALUES(‘c000000005’, ‘John’, ‘Smith’, ‘smith@aol.net’,‘1991991999’, ‘321 South Street’); 
+insert into customer values('c000000005', 'John', 'Smith', 'smith@aol.net', '1991991999');
 
 # customer update
-UPDATE Customer SET Email = ‘doe20@gmail.com’ WHERE CID = ‘c00000020’ 
+update customer set email='doe20@gmail.com' where cid='c00000020';
 
 # customer delete
-DELETE FROM Customer WHERE CID = ‘c00000019’; 
+delete from customer where cid='c00000019';
