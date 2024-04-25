@@ -1,7 +1,7 @@
 Book(ISBN(pk), PID(fk), Title, BasePrice, Year, Category, Stock) 
 Author(AID(pk), PenFirstName, PenLastName, FirstName, LastName, Email, Phone)
 Customer(CID(pk), FirstName, LastName, Email, Phone)
-Publisher(PID(pk), Name, Email, Phone) 
+Publisher(PID(pk), Name, Email, Phone, Address) 
 Discount(DiscountID(pk), BISBN(fk), DiscountStart, DiscountEnd, AmountOff)
 Review(ReviewID(pk), BISBN(fk), CID(fk), Rating, Content)
 Purchase(PurchaseID(pk), BISBN(fk), CusID(fk),  DateOfSale, PQuantity)
