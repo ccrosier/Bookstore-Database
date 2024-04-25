@@ -1,0 +1,79 @@
+/*
+ * Relational algebra for these queries can be found in "User Manual/Sample Queries" in the final report.
+ */
+1. Plain english: Average price of books distributed by a given publisher
+SELECT p.name, AVG(b.BasePrice) as AvgPrice
+FROM Book b, Publisher P 
+WHERE b.PubID=p.PID 
+GROUP BY p.name;
+
+2. Plain english: Title of every book with an average rating of 4/5 or higher that has been reviewed at least 10 times
+with R1 AS (SELECT b.ISBN, COUNT(ISBN), AVG(r.Rating) AS avg_rating FROM Review r, Book b GROUP BY ISBN),
+Result AS (SELECT b.Title FROM Book b JOIN R1 on b.ISBN = R1.ISBN WHERE R1.avg_Rating >= 4)
+SELECT Title FROM Result;
+
+3. Plain English: The PenFirstName of every author that has written a book in the genre fiction
+R1<- σGenre="fiction"(Book)
+Result <- ΠPenFirstName(Author ⋈AID=AuID R1)
+SQL Query: 
+with R1 AS (SELECT * FROM Book WHERE Genre = 'fiction'),
+Result as (SELECT DISTINCT a.PenFirstName From Author a JOIN R1 ON a.AID = R1.AuID)
+select * from RESULT;
+
+/*
+ * Relational algebra for these queries can be found in "User Manual/Sample Queries" in the final report.
+ */
+a. select Title, BasePrice from BOOK, AUTHOR, WRITES where AuID=AID and BISBN=ISBN and LastName='Pratchett' and BasePrice<10;
+b. select Title, DateOfSale from BOOK, PURCHASE, CUSTOMER where BISBN=ISBN and CusID=CID and CusID='c00000001';
+c. select Title, ISBN from BOOK where Stock < 5;
+d. with R1 as (select * from CUSTOMER, PURCHASE, BOOK where CusID=CID and BISBN=ISBN)
+   select CID, Title from R1, AUTHOR as a, WRITES as w where w.BISBN=ISBN and w.AuID=a.AID and a.PenLastName='Pratchett';
+e. select sum(Quantity) from BOOK, PURCHASE, CUSTOMER where BISBN=ISBN and CusID=CID and CusID='c00000001';
+f. with R1 as (select CID, Title, DateOfSale, Quantity from BOOK, PURCHASE, CUSTOMER where BISBN=ISBN and CusID=CID),
+   R2 as (select CID, sum(Quantity) from R1 group by CID)
+   select CID, max(Total) from R2;
+
+a. SELECT c.FirstName, c.LastName, SUM(b.BasePrice * p.Quantity) AS TotalSpent
+   FROM Customer c, Purchase p, Book b
+   WHERE c.CID = p.CusID
+   AND p.BISBN = b.ISBN
+   GROUP BY c.CID;
+b. SELECT c.FirstName, c.LastName, c.Email, SUM(b.BasePrice * p.Quantity) AS TotalSpent
+   FROM Customer c, Purchase p, Book b
+   WHERE c.CID = p.CusID 
+   AND p.BISBN = b.ISBN
+   AND c.TotalSpent > AVG(TotalSpent)
+   GROUP BY c.CID;
+   Modified:
+   WITH R1 AS (SELECT p.CusID, SUM(b.BasePrice * p.Quantity) AS TotalSpent, AVG(TotalSpent) AS avg_spent FROM Purchase p, Book b GROUP BY ISBN),
+   Result AS (SELECT c.FirstName, c.LastName, c.Email from Customer c join R1 on c.CID = R1.CusID where R1.TotalSpent > R1.avg_spent)
+   SELECT c.FirstName, c.LastName FROM Result
+c. SELECT b.Title, SUM(p.Quantity) AS TotalCopiesSold
+   FROM Book b
+   JOIN Purchase p WHERE b.ISBN = p.BISBN
+   GROUP BY b.ISBN
+   ORDER BY TotalCopiesSold DESC;
+d. SELECT b.Title, (b.BasePrice * SUM(p.Quantity)) AS TotalDollarPerTitle
+   FROM Book b, Purchase p
+   WHERE b.ISBN = p.BISBN
+   GROUP BY b.Title
+   ORDER BY TotalDollarPerTitle DESC;
+e. SELECT a.FirstName, a.LastName, SUM(p.Quantity) AS TotalBooksSold
+   FROM Author a, Writes w, Purchase p
+   WHERE a.AID = w.AuID AND w.BISBN = p.BISBN
+   GROUP BY a.AID
+   ORDER BY TotalBooksSold DESC;
+f. SELECT PenFirstName, PenLastName, MAX(TotalProfit) from (
+   SELECT a.PenFirstName, a.PenLastName, SUM(b.BasePrice * p.Quantity) AS TotalProfit
+   FROM Author a, Writes w, Purchase p, Book b
+   WHERE a.AID = w.AuID AND w.BISBN = b.ISBN AND b.ISBN = p.BISBN
+   GROUP BY a.AID
+   ORDER BY TotalProfit DESC);
+g. SELECT c.* FROM Customer c, Purchase p, Writes w, Author a
+   WHERE p.BISBN = w.BISBN
+   AND c.CID = p.CusID 
+   AND w.AuID = (SELECT a.AID FROM Author a, Writes w, Book b, Purchase p WHERE a.AID = w.AuID AND w.BISBN = b.ISBN AND b.ISBN = p.BISBN GROUP BY a.AID ORDER BY SUM(b.BasePrice * p.Quantity) DESC) LIMIT 1;
+h.  WITH r1 AS (SELECT c.cid, sum(b.bASeprice) AS totalspent FROM customer c, book b, purchASe p WHERE c.cid=p.cusid AND p.bisbn=b.isbn GROUP BY cid),
+    r2 AS (SELECT AVG(totalspent) AS ats FROM r1)
+    SELECT a.* FROM r1 x, r2 y, author a, purchASe p, writes w, book b WHERE p.cusid=cid AND p.bisbn=b.isbn AND b.isbn=w.bisbn AND w.auid=a.aid AND x.totalspent>y.ats;
+

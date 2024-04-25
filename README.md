@@ -7,4 +7,3 @@ To load the database on a linux system, run the following commands:
   
 These scripts will create the tables, indices, and views. Alternatively,
 the code in each file can be executed direclty in the sqlite3 CLI.
-

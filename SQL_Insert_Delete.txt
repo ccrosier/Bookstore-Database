@@ -1,30 +1,43 @@
-INSERT INTO Publisher VALUES('Penguin' ‘p000000070’, ‘Penguin’, ‘123 Sesame Street’, ‘peng@gmail.com’, ‘1234567890’);
-INSERT INTO Books VALUES ('1111111111', 1, 1, 'The Great Gatsby', 10.99, 1925, 'Classic', 100);
-INSERT INTO Author VALUES(‘a000000005’, “Joe”, “Schmoe”, “Joe”, ‘joe@gmail.com’, NULL, NULL);
-INSERT INTO Writes VALUES (‘1111111111’, ‘a000000005’);
+# All insert/delete/update examples can be found in the User Manual section of the Final Report
+ 
+# book insertion
+insert into publisher values('p000000070', 'Penguin', 'peng@gmail.com', '1234567890', '123 Sesame Street');
+insert into book values ('1111111111', 'p000000005', 'The Great Gatsby', 10.99, 1925, 'Classic', 100);
+insert into author values('a000000005', 'Joe', 'Schmoe', 'Joe', 'joe@gmail.com', NULL, NULL);
+insert into writes values('11111111111', 'a000000005');
 
-DELETE FROM Book WHERE ISBN = ‘abcd111111’;
+# book deletion 
+DELETE FROM Book WHERE ISBN=‘abcd111111’;
 DELETE FROM Writes WHERE ISBN = ‘abcd11111’; 
 
-
+# 
 UPDATE Book SET Stock = 150 WHERE ISBN = 'abcd111111'
 
+# author insertion
 INSERT INTO Author
-VALUES('a000000005', "Joe", "Schmoe", "Joe", "Schmoe"),
-'joe@gmail.com', NULL, NULL;
+VALUES('a000000005', "Joe", "Schmoe", "Joe", "Schmoe",
+'joe@gmail.com', NULL);
 
+# author update
 UPDATE Author SET PenLastName='Smith' WHERE AID='a000000005';
 
+# author delete 
 DELETE FROM Author WHERE AID='a000000005'
 
+# publisher insert 
 INSERT INTO Publisher VALUES('p000000005', 'Penguin', '123 Sesame Street', 'peng@gmail.com', '1234567890')
 
+# publisher update
 UPDATE Publisher SET Name=’NewName’ WHERE PID=’p000000005’; 
 
+# publisher delete
 DELETE FROM Publisher WHERE PID = ‘p00000005’; 
 
+# customer insert
 INSERT INTO Customer VALUES(‘c000000005’, ‘John’, ‘Smith’, ‘smith@aol.net’,‘1991991999’, ‘321 South Street’); 
 
+# customer update
 UPDATE Customer SET Email = ‘doe20@gmail.com’ WHERE CID = ‘c00000020’ 
 
+# customer delete
 DELETE FROM Customer WHERE CID = ‘c00000019’; 

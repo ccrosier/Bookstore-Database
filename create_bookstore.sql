@@ -7,10 +7,10 @@ create table BOOK
     ISBN char(10) not null,
     PubID char(9) not null,
     Title varchar(150) not null,
-    Year char(4),
     BasePrice real,
-    Stock int,
+    Year char(4),
     Category varchar(30),
+    Stock int,
     primary key(ISBN),
     foreign key(PubID) references PUBLISHER(PID)
 );
