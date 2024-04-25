@@ -1,0 +1,30 @@
+INSERT INTO Publisher VALUES('Penguin' ‘p000000070’, ‘Penguin’, ‘123 Sesame Street’, ‘peng@gmail.com’, ‘1234567890’);
+INSERT INTO Books VALUES ('1111111111', 1, 1, 'The Great Gatsby', 10.99, 1925, 'Classic', 100);
+INSERT INTO Author VALUES(‘a000000005’, “Joe”, “Schmoe”, “Joe”, ‘joe@gmail.com’, NULL, NULL);
+INSERT INTO Writes VALUES (‘1111111111’, ‘a000000005’);
+
+DELETE FROM Book WHERE ISBN = ‘abcd111111’;
+DELETE FROM Writes WHERE ISBN = ‘abcd11111’; 
+
+
+UPDATE Book SET Stock = 150 WHERE ISBN = 'abcd111111'
+
+INSERT INTO Author
+VALUES('a000000005', "Joe", "Schmoe", "Joe", "Schmoe"),
+'joe@gmail.com', NULL, NULL;
+
+UPDATE Author SET PenLastName='Smith' WHERE AID='a000000005';
+
+DELETE FROM Author WHERE AID='a000000005'
+
+INSERT INTO Publisher VALUES('p000000005', 'Penguin', '123 Sesame Street', 'peng@gmail.com', '1234567890')
+
+UPDATE Publisher SET Name=’NewName’ WHERE PID=’p000000005’; 
+
+DELETE FROM Publisher WHERE PID = ‘p00000005’; 
+
+INSERT INTO Customer VALUES(‘c000000005’, ‘John’, ‘Smith’, ‘smith@aol.net’,‘1991991999’, ‘321 South Street’); 
+
+UPDATE Customer SET Email = ‘doe20@gmail.com’ WHERE CID = ‘c00000020’ 
+
+DELETE FROM Customer WHERE CID = ‘c00000019’; 

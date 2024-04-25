@@ -4,26 +4,26 @@
  */
 create table BOOK
 (
+    ISBN char(10) not null,
+    PubID char(9) not null,
     Title varchar(150) not null,
     Year char(4),
     BasePrice real,
     Stock int,
     Category varchar(30),
-    ISBN char(10) not null,
-    PubID char(9) not null,
     primary key(ISBN),
     foreign key(PubID) references PUBLISHER(PID)
 );
 
 create table AUTHOR
 (
+    AID char(9) not null,
     PenFirstName varchar(30) not null,
     PenLastName varchar(30) not null,
     FirstName varchar(30),
     LastName varchar(30),
     Email varchar(30),
     Phone char(10),
-    AID char(9) not null,
     primary key(AID)
 );
 
@@ -38,21 +38,21 @@ create table WRITES
 
 create table CUSTOMER
 (
+    CID char(9) not null,
     FirstName varchar(30) not null,
     LastName varchar(30) not null,
     Email varchar(30) not null,
     Phone char(10) not null,
-    CID char(9) not null,
     primary key(CID)
 );
 
 create table PUBLISHER
 (
+    PID char(9) not null,
     Name varchar(30) not null,
     Email varchar(30),
     Phone char(10),
     Address varchar(30),
-    PID char(9) not null,
     primary key(PID)
 );
 

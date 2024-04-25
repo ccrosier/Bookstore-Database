@@ -32,8 +32,8 @@ create view Top5Genre as select Category, quant as QuantitySold from (
 * It makes sense to think of books in terms of the author and the title, hence making an index for AID and Title would be a good candidate index.
 */
 
-CREATE INDEX author_and_title
-ON BOOK (AID, Title);
+CREATE INDEX title
+ON BOOK (Title);
 
 /*
 * Second index: find the phone number of a publisher the user wishes to contact, categorized by PID, E-mail and phone number. Reasoning: this index has been chosen in the case that the user wishes to make contact with the publisher (perhaps uses the phone number
